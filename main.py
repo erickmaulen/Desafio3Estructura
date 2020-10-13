@@ -15,14 +15,24 @@ datos = DataHandler()
 points = datos.get_points()
 listeishon = listeishon()
 
+type = ''
+#Primero, preguntamos que tipo de estructura quiere usar
+print('Bienvenido! \nPrimero, necesito saber si quieres usar una lista o un KDTree.')
+while type != "a" and type != "b":
+    print('a : Lista\n b : KDTree')
+    type = input()
+
+print('Usando Lista...')
+
 print('Loading Dataset...')
 cont=0
 for data in datos.data.values:
     #Insert into KDTree
-    #tree.insert(points.values[cont], data)
-    node = Node(data,points.values[cont])
-    listeishon.listeishon.append(node)
-    #print(listeishon[cont].get_id())
+    if type == "b":
+        tree.insert(points.values[cont], data)
+    else:
+        node = Node(data,points.values[cont])
+        listeishon.listeishon.append(node)
     cont+=1
     
 print('Dataset Loaded.')
@@ -31,11 +41,13 @@ print('Dataset Loaded.')
 while True:
     cls()
     print('Que deseas hacer?')
-    print('a : Buscar Información por ID o Nombre')
-    print('b : Buscar 10 más parecidas por ID')
-    print('c : Buscar 10 más parecidas por datos')
-    print('d : Buscar Información por ID con una Lista')
-    print('e : Buscar 10 más parecidas por ID con una Lista')
+    if type == "b":
+        print('a : Buscar Información por ID o Nombre')
+        print('b : Buscar 10 más parecidas por ID')
+        print('c : Buscar 10 más parecidas por datos')
+    if type == "a":
+        print('d : Buscar Información por ID con una Lista')
+        print('e : Buscar 10 más parecidas por ID con una Lista')
     print('x : Salir')
     print('Ingrese la opcion: ', end='')
 
@@ -43,7 +55,7 @@ while True:
 
     if option == 'x':
         break    
-    elif option == 'a':
+    elif option == "a" and type == "b":
         print('Ingresa el nombre o la ID: ', end='')
         idorname = input() 
         if idorname.isnumeric():
@@ -62,7 +74,7 @@ while True:
         else:
             print('No se encontro App con esa ID o Nombre!')
 
-    elif option == 'b':
+    elif option == "b" and type == "b":
         print('Ingresa la ID: ', end='')
         idorname = input() 
         if idorname.isnumeric():
@@ -78,7 +90,7 @@ while True:
 
         else:
             print('Esa ID no es valida. Ingrese SOLO NUMEROS')
-    elif option == 'c':
+    elif option == 'c' and type == "b":
         dictPoint = {}
 
         print('Ingrese tamano en bytes: ', end='')
@@ -208,7 +220,7 @@ while True:
         for app in apps:
             app[1].print_data()
 
-    elif option == 'd':
+    elif option == 'd' and type == "a":
         #print("hola")
         cont = 0
         print('Ingresa la ID: ', end='')
@@ -226,7 +238,7 @@ while True:
         
         
         
-    elif option == 'e':
+    elif option == 'e' and type == "a":
         print('Ingresa la ID: ', end='')
         idorname = int(input()) 
         for data in listeishon.listeishon:
