@@ -3,6 +3,8 @@ from KDTree import KDTree
 import os
 import numpy as np
 import pandas as pd
+from Node import Node
+from List import listeishon
 
 #Para borrar la pantalla
 def cls():
@@ -11,13 +13,18 @@ def cls():
 tree = KDTree()
 datos = DataHandler()
 points = datos.get_points()
+listeishon = listeishon()
 
 print('Loading Dataset...')
 cont=0
 for data in datos.data.values:
     #Insert into KDTree
-    tree.insert(points.values[cont], data)
+    #tree.insert(points.values[cont], data)
+    node = Node(data,points.values[cont])
+    listeishon.listeishon.append(node)
+    #print(listeishon[cont].get_id())
     cont+=1
+    
 print('Dataset Loaded.')
 
 #Menu de Switch bien nitido
@@ -27,6 +34,8 @@ while True:
     print('a : Buscar Información por ID o Nombre')
     print('b : Buscar 10 más parecidas por ID')
     print('c : Buscar 10 más parecidas por datos')
+    print('d : Buscar Información por ID con una Lista')
+    print('e : Buscar 10 más parecidas por ID con una Lista')
     print('x : Salir')
     print('Ingrese la opcion: ', end='')
 
@@ -199,6 +208,33 @@ while True:
         for app in apps:
             app[1].print_data()
 
+    elif option == 'd':
+        #print("hola")
+        cont = 0
+        print('Ingresa la ID: ', end='')
+        idorname = int(input()) 
+        
+
+        for data in listeishon.listeishon:
+            #print(listeishon[cont].get_id())
+            if data.get_id() == idorname:
+                data.print_data()
+                       
+        else:
+            print('No se encontro App con esa ID!')
+        
+        
+        
+        
+    elif option == 'e':
+        print('Ingresa la ID: ', end='')
+        idorname = int(input()) 
+        for data in listeishon.listeishon:
+            if data.get_id() == idorname:
+                apps = listeishon.search_KNN(data.point,10)
+                for app in apps:
+                    app[1].print_data() 
+                break
     print('Enter para continuar...') 
     input()
     
