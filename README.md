@@ -14,3 +14,6 @@ Para ejecutar, solo se debe inicializar main.py y seguir las instrucciones que a
 ```
 python main.py
 ```
+
+###Presentacion
+https://drive.google.com/file/d/1UI3K6En07lJGuVmthmw_gSxItYSFwMOP/view?usp=sharing
